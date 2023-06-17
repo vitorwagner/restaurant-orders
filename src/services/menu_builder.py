@@ -25,5 +25,18 @@ class MenuBuilder:
         self.inventory.consume_recipe(curr_dish.recipe)
 
     # Req 4
+    # https://www.w3schools.com/python/ref_keyword_continue.asp
     def get_main_menu(self, restriction=None) -> List[Dict]:
-        pass
+        main_menu = []
+        for dish in self.menu_data.dishes:
+            if restriction in dish.get_restrictions():
+                continue
+            main_menu.append(
+                {
+                    "dish_name": dish.name,
+                    "price": dish.price,
+                    "ingredients": dish.get_ingredients(),
+                    "restrictions": dish.get_restrictions(),
+                }
+            )
+        return main_menu
